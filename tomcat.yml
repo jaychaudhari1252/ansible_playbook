@@ -3,7 +3,7 @@
   become: true
   tasks:
     - name: Download file and force basic auth for tomcat
-        get_url:
-          url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.99/bin/apache-tomcat-8.5.99.tar.gz
-          dest: /home/ec2-user/
-          force_basic_auth: yes
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.99/bin/apache-tomcat-8.5.99.tar.gz
+        dest: /home/ec2-user/
+        force_basic_auth: yes
