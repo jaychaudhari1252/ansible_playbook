@@ -65,7 +65,7 @@
     - name: Create user and grant access to database
       mysql_query:
         login_user: root
-        login_password: "12345"
+        login_password: 12345
         query: |
           CREATE USER 'deepak'@'localhost' IDENTIFIED BY '12345';
           GRANT ALL PRIVILEGES ON *.* TO 'deepak'@'localhost';
