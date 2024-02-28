@@ -70,7 +70,8 @@
           CREATE USER 'deepak'@'localhost' IDENTIFIED BY '12345';
           GRANT ALL PRIVILEGES ON *.* TO 'deepak'@'localhost';
           FLUSH PRIVILEGES;
-      remote_src: true
+      when: is_root_password_set.rc == 0
+
 
     # - debug:
     #     var: query_result
