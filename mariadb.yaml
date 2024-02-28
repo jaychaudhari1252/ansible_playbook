@@ -15,9 +15,9 @@
       package:
         name: python3-pip
         state: present
-    - name: install PyMySQL
+    - name: install  MySQL-python
       pip:
-        name: PyMySQL
+        name:  MySQL-python
         state: present
     - name: Install MySQL-python
       yum:
