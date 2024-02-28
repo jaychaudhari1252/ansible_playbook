@@ -16,7 +16,7 @@
         name: 
           - python3-pip
           - mysqlclient
-          - PyMySQL-1.1.0L
+          - PyMySQL-1.1.0
         state: present
 
     - name: Is root password set?
