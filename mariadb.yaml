@@ -24,11 +24,11 @@
       register: is_root_password_set
       ignore_errors: yes
      
-    - name: Delete anonymous users
-      mysql_user:
-        user=""
-        state="absent"
-      when: is_root_password_set.rc == 0
+    # - name: Delete anonymous users
+    #   mysql_user:
+    #     user=""
+    #     state="absent"
+    #   when: is_root_password_set.rc == 0
 
     - name: Generate mysql root password
       shell: tr -d -c "a-zA-Z0-9" \< /dev/urandom | head -c 10
