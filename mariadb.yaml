@@ -30,17 +30,28 @@
     #     state="absent"
     #   when: is_root_password_set.rc == 0
 
-    - name: Generate mysql root password
-      shell: tr -d -c "a-zA-Z0-9" \< /dev/urandom | head -c 10
-      register: mysql_root_password
-      when: is_root_password_set.rc == 0
+    # - name: Generate mysql root password
+    #   shell: tr -d -c "a-zA-Z0-9" \< /dev/urandom | head -c 10
+    #   register: mysql_root_password
+    #   when: is_root_password_set.rc == 0
 
-    - name: Set root password
-      mysql_user:
-        user=root
-        password="12345"
-        host=localhost
-      when: is_root_password_set.rc == 0
+    - name: secure mariadb
+      become: yes
+      expect:
+        command: mysql_secure_installation
+        responses:
+          'Enter current password for root': ''
+          'Set root password': 'y'
+          'New password': '12345'
+          'Re-enter new password': '12345'
+          'Remove anonymous users': 'y'
+          'Disallow root login remotely': 'y'
+          'Remove test database': 'y'
+          'Reload privilege tables now': 'y'
+        timeout: 1
+      register: secure_mariadb
+      failed_when: "'... Failed!' in secure_mariadb.stdout_lines"
+
     - name: Create user for maria db
       mysql_user:
         name: deepak
