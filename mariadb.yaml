@@ -38,19 +38,20 @@
     #   when: is_root_password_set.rc == 0
 
     - name: secure mariadb
-      command: mysql_secure_installation
-      responses:
-        'Enter current password for root': ''
-        'Set root password': 'y'
-        'New password': '12345'
-        'Re-enter new password': '12345'
-        'Remove anonymous users': 'y'
-        'Disallow root login remotely': 'y'
-        'Remove test database': 'y'
-        'Reload privilege tables now': 'y'
-      timeout: 1
+      expect:
+        command: mysql_secure_installation
+        responses:
+          'Enter current password for root': ''
+          'Set root password': 'y'
+          'New password': '12345'
+          'Re-enter new password': '12345'
+          'Remove anonymous users': 'y'
+          'Disallow root login remotely': 'y'
+          'Remove test database': 'y'
+          'Reload privilege tables now': 'y'
       register: secure_mariadb
-      failed_when: "'... Failed!' in secure_mariadb.stdout_lines"
+      failed_when: "'... Failed!' in secure_mariadb.stdout"
+
 
     - name: Create user for maria db
       mysql_user:
