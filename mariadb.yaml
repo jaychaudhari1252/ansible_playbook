@@ -13,13 +13,13 @@
         state: started
         enabled: yes
 
-    # - name: install python3
-    #   package:
-    #     name:
-    #       - python3-pip
-    #       - mysqlclient
-    #       - PyMySQL-1.1.0
-    #     state: present
+    - name: install pip module
+      pip:
+        name:
+          - pexpect
+          # - mysqlclient
+          # - PyMySQL-1.1.0
+        state: present
 
     - name: Is root password set?
       command: mysql -u root --execute "SELECT NOW()"
