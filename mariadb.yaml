@@ -51,7 +51,7 @@
           'Reload privilege tables now': 'y'
       register: secure_mariadb
       failed_when: "'... Failed!' in secure_mariadb.stdout"
-
+      become: true
 
     - name: Create user for maria db
       mysql_user:
