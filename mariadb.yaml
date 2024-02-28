@@ -70,7 +70,7 @@
           CREATE USER 'deepak'@'localhost' IDENTIFIED BY '12345';
           GRANT ALL PRIVILEGES ON *.* TO 'deepak'@'localhost';
           FLUSH PRIVILEGES;
-
+      become: true
 
     - debug:
         var: query_result
