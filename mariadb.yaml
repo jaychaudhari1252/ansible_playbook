@@ -11,6 +11,14 @@
         name: mariadb
         state: started
         enabled: yes
+    - name: install python3
+      package:
+        name: python3-pip
+        state: present
+    - name: install PyMySQL
+      pip:
+        name: PyMySQL
+        state: present
     - name: Install MySQL-python
       yum:
         name:
