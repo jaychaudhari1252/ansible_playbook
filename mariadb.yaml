@@ -1,19 +1,21 @@
-- name: install and confugure mariadb
+- name: install and configure mariadb
   hosts: db_servers
   become: true
   tasks:
-    - name: instll mariadb
+    - name: install mariadb
       package:
         name: mariadb105-server
-        state: present 
+        state: present
+
     - name: Start MariaDB
       service:
         name: mariadb
         state: started
         enabled: yes
+
     # - name: install python3
     #   package:
-    #     name: 
+    #     name:
     #       - python3-pip
     #       - mysqlclient
     #       - PyMySQL-1.1.0
@@ -23,30 +25,30 @@
       command: mysql -u root --execute "SELECT NOW()"
       register: is_root_password_set
       ignore_errors: yes
-     
+
     # - name: Delete anonymous users
     #   mysql_user:
-    #     user=""
-    #     state="absent"
+    #     user: ""
+    #     state: absent
     #   when: is_root_password_set.rc == 0
 
     # - name: Generate mysql root password
-    #   shell: tr -d -c "a-zA-Z0-9" \< /dev/urandom | head -c 10
+    #   shell: tr -d -c "a-zA-Z0-9" < /dev/urandom | head -c 10
     #   register: mysql_root_password
     #   when: is_root_password_set.rc == 0
 
     - name: secure mariadb
-        command: mysql_secure_installation
-        responses:
-          'Enter current password for root': ''
-          'Set root password': 'y'
-          'New password': '12345'
-          'Re-enter new password': '12345'
-          'Remove anonymous users': 'y'
-          'Disallow root login remotely': 'y'
-          'Remove test database': 'y'
-          'Reload privilege tables now': 'y'
-        timeout: 1
+      command: mysql_secure_installation
+      responses:
+        'Enter current password for root': ''
+        'Set root password': 'y'
+        'New password': '12345'
+        'Re-enter new password': '12345'
+        'Remove anonymous users': 'y'
+        'Disallow root login remotely': 'y'
+        'Remove test database': 'y'
+        'Reload privilege tables now': 'y'
+      timeout: 1
       register: secure_mariadb
       failed_when: "'... Failed!' in secure_mariadb.stdout_lines"
 
@@ -55,7 +57,7 @@
         name: deepak
         password: "12345"
         priv: '*.*:ALL'
-        login_user:
-        root login_password: "12345"
+        login_user: root
+        login_password: "12345"
         state: present
       when: is_root_password_set.rc == 0
