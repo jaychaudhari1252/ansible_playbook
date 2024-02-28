@@ -36,7 +36,6 @@
     #   when: is_root_password_set.rc == 0
 
     - name: secure mariadb
-      become: yes
       expect:
         command: mysql_secure_installation
         responses:
