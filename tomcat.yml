@@ -22,6 +22,11 @@
         src: /opt/apache-tomcat-8.5.99/webapps/listrace.zip
         dest: /opt/apache-tomcat-8.5.99/webapps/
         remote_src: yes
+    -name: install java
+     yum:
+      name: java
+      state: present
+      
     - name: This command will change the working directory to somedir/.
       shell:
-        cmd: /opt/apache-tomcat-8.5.99/bin/startup.sh start
+        cmd: bash /opt/apache-tomcat-8.5.99/bin/startup.sh start
