@@ -19,12 +19,7 @@
       pip:
         name:  MySQL-python
         state: present
-    - name: Install MySQL-python
-      yum:
-        name:
-          - python3-pip
-          - MySQL-python
-        state: present
+    
     - name: Is root password set?
       command: mysql -u root --execute "SELECT NOW()"
       register: is_root_password_set
