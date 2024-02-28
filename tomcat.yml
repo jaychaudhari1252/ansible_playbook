@@ -11,3 +11,4 @@
       unarchive:
         src: /home/ec2-user/apache-tomcat-8.5.99.tar.gz
         dest: /opt/
+        remote_src: yes
