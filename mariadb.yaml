@@ -53,15 +53,15 @@
       failed_when: "'... Failed!' in secure_mariadb.stdout"
       become: true
 
-    - name: Create user for maria db
-      mysql_user:
-        name: deepak
-        password: "12345"
-        priv: '*.*:ALL'
-        login_user: root
-        login_password: "12345"
-        state: present
-      when: is_root_password_set.rc == 0
+    # - name: Create user for maria db
+    #   mysql_user:
+    #     name: deepak
+    #     password: "12345"
+    #     priv: '*.*:ALL'
+    #     login_user: root
+    #     login_password: "12345"
+    #     state: present
+    #   when: is_root_password_set.rc == 0
     - name: Create user and grant access to database
       mysql_query:
         login_user: root
