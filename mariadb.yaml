@@ -1,0 +1,44 @@
+- name: install and confugure mariadb
+  host: db_servers
+  become: true
+  tasks:
+    - name: instll mariadb
+      package:
+        name: mariadb105-server
+        state: present 
+    - name: Start MariaDB
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+    - name: Is root password set?
+      command: mysql -u root --execute "SELECT NOW()"
+      register: is_root_password_set
+      ignore_errors: yes
+     
+    - name: Delete anonymous users
+      mysql_user:
+        user=""
+        state="absent"
+      when: is_root_password_set.rc == 0
+
+    - name: Generate mysql root password
+      shell: tr -d -c "a-zA-Z0-9" \< /dev/urandom | head -c 10
+      register: mysql_root_password
+      when: is_root_password_set.rc == 0
+
+    - name: Set root password
+      mysql_user:
+        user=root
+        password="12345"
+        host=localhost
+      when: is_root_password_set.rc == 0
+    - name: Create user for maria db
+      mysql_user:
+        name: deepak
+        password: "12345"
+        priv: *.*
+        login_user:
+        root login_password: "12345"
+        state: present
+      when: is_root_password_set.rc == 0
