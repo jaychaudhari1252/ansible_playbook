@@ -37,7 +37,7 @@
       mysql_user:
         name: deepak
         password: "12345"
-        priv: *.*
+        priv: '*.*:ALL'
         login_user:
         root login_password: "12345"
         state: present
