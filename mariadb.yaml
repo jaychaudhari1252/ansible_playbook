@@ -46,7 +46,7 @@
           'New password': '12345'
           'Re-enter new password': '12345'
           'Remove anonymous users': 'y'
-          'Disallow root login remotely': 'y'
+          'Disallow root login remotely': 'n'
           'Remove test database': 'y'
           'Reload privilege tables now': 'y'
       register: secure_mariadb
