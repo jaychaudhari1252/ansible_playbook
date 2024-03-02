@@ -1,0 +1,12 @@
+- name: loops
+  host: all
+  tasks:
+    - name: loops
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - httpd
+        - mariadb105-server
+        - java
+      become : true
