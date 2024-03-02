@@ -1,5 +1,5 @@
 - name: loops
-  host: all
+  hosts: all
   tasks:
     - name: loops
       yum:
